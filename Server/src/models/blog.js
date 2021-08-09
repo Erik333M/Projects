@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 
-const { Schema, model } = mongoose
+const { Schema, model, ObjectId } = mongoose
 
 const BlogSchema = new Schema({
-    title:{
+    title: {
         type: String,
         required: true,
     },
-    body:{
+    discribtion: {
         type: String,
         required: true,
         trim: true,
     },
-    pictureName:{
-        type:String,
-        require:true,
-    }
+    publicData: {
+        type: Date,
+        default: new Date()
+    },
+    comments: [{ type: ObjectId, ref: "comment" }]
+    
 })
 
-const Blog = model("blog",BlogSchema)
+const Blog = model("blog", BlogSchema)
 
 module.exports = Blog

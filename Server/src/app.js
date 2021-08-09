@@ -5,6 +5,8 @@ const path = require("path")
 const sendLetterRouter = require("./routers/letter")
 const blog = require('./routers/blog')
 const test = require('./routers/test')
+const comment = require('./routers/comments')
+const Reply = require('./routers/reply')
 const port = process.env.PORT
 
 const userRouter = require('./routers/user')
@@ -22,7 +24,9 @@ app.use(userRouter);
 app.use(sendLetterRouter);
 app.use(blogCrudRouter);
 app.use(blog);
-app.use(test)
+app.use(test);
+app.use(comment); 
+app.use(Reply);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

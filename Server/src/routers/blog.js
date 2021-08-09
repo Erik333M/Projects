@@ -1,7 +1,5 @@
 const express = require("express");
-// const { findByIdAndDelete } = require("../models/blog");
 const fs = require('fs');
-const { findById } = require("../models/blog");
 const Blogs = express.Router();
 const BlogModel = require('../models/blog');
 
@@ -13,15 +11,17 @@ Blogs.post('/blogs', async (req, res) => {
         res.status(200).send(blog)
     } catch (error) {
         console.log(error);
+        res.status(400).send(error)
     }
 })
 
 Blogs.get('/blogs', async (req, res) => {
     try {
-        const blogs = await BlogModel.find()
+        const blogs = await BlogModel.find().populate({ path: "comments", populate:"Reply"  })
 
         res.send(blogs);
     } catch (error) {
+        console.log(error)
         res.status(500).send(error)
     }
 
